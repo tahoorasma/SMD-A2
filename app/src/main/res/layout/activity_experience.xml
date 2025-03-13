@@ -32,8 +32,38 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etExperience"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="150dp"
                 android:hint="Write your experiences here..."
+                android:gravity="top"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:boxStrokeColor="#5D5FEF"
+            app:hintTextColor="#5D5FEF">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etStartDate"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Starte Date"
+                android:gravity="top"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:boxStrokeColor="#5D5FEF"
+            app:hintTextColor="#5D5FEF">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEndDate"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="End Date"
                 android:gravity="top"/>
         </com.google.android.material.textfield.TextInputLayout>
 

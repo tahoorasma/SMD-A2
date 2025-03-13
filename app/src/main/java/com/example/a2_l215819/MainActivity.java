@@ -1,5 +1,6 @@
 package com.example.a2_l215819;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -33,5 +34,33 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        SharedPreferences spProfPic = getSharedPreferences("ProfilePicture", MODE_PRIVATE);
+        SharedPreferences.Editor ppEditor = spProfPic.edit();
+        ppEditor.clear();
+        ppEditor.apply();
+        SharedPreferences spUserDetails = getSharedPreferences("UserDetails", MODE_PRIVATE);
+        SharedPreferences.Editor udEditor = spUserDetails.edit();
+        udEditor.clear();
+        udEditor.apply();
+        SharedPreferences spSummary = getSharedPreferences("Summary", MODE_PRIVATE);
+        SharedPreferences.Editor sEditor = spSummary.edit();
+        sEditor.clear();
+        sEditor.apply();
+        SharedPreferences spEdu = getSharedPreferences("Education", MODE_PRIVATE);
+        SharedPreferences.Editor eduEditor = spEdu.edit();
+        eduEditor.clear();
+        eduEditor.apply();
+        SharedPreferences spExp = getSharedPreferences("Experience", MODE_PRIVATE);
+        SharedPreferences.Editor expEditor = spExp.edit();
+        expEditor.clear();
+        expEditor.apply();
+        SharedPreferences spCert = getSharedPreferences("Certifications", MODE_PRIVATE);
+        SharedPreferences.Editor cEditor = spCert.edit();
+        cEditor.clear();
+        cEditor.apply();
+        SharedPreferences spRef = getSharedPreferences("References", MODE_PRIVATE);
+        SharedPreferences.Editor rEditor = spRef.edit();
+        rEditor.clear();
+        rEditor.apply();
     }
 }

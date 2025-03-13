@@ -1,5 +1,6 @@
 package com.example.a2_l215819;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,10 +39,16 @@ public class ReferencesActivity extends AppCompatActivity {
         });
     }
     private void save() {
-        if (etReferences.getText().toString().trim().isEmpty()) {
+        String ref = etReferences.getText().toString().trim();
+        if (ref.isEmpty()) {
             etReferences.setError("References required");
             return;
         }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("References", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("ref", ref);
+        editor.apply();
 
         Toast.makeText(this, "References saved successfully", Toast.LENGTH_SHORT).show();
         finish();

@@ -1,5 +1,6 @@
 package com.example.a2_l215819;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,10 +39,16 @@ public class EducationActivity extends AppCompatActivity {
         });
     }
     private void save() {
-        if (etEducation.getText().toString().trim().isEmpty()) {
+        String edu = etEducation.getText().toString().trim();
+        if (edu.isEmpty()) {
             etEducation.setError("Education is required");
             return;
         }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("Education", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("edu", edu);
+        editor.apply();
 
         Toast.makeText(this, "Education saved successfully", Toast.LENGTH_SHORT).show();
         finish();

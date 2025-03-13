@@ -1,5 +1,7 @@
 package com.example.a2_l215819;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -42,25 +44,31 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         });
     }
     private void savePersonalDetails() {
-        if (etFullName.getText().toString().trim().isEmpty()) {
+        String fullName = etFullName.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String phone = etPhone.getText().toString().trim();
+
+        if (fullName.isEmpty()) {
             etFullName.setError("Full name is required");
             return;
         }
 
-        if (etEmail.getText().toString().trim().isEmpty()) {
+        if (email.isEmpty()) {
             etEmail.setError("Email is required");
             return;
         }
 
-        if (etPhone.getText().toString().trim().isEmpty()) {
-            etPhone.setError("Phone no. is required");
-            return;
-        }
-
-        if (etPhone.getText().toString().trim().length()!=11) {
+        if (phone.isEmpty() || phone.length() != 11) {
             etPhone.setError("Invalid Phone no");
             return;
         }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("fullName", fullName);
+        editor.putString("email", email);
+        editor.putString("phone", phone);
+        editor.apply();
 
         Toast.makeText(this, "Personal details saved successfully", Toast.LENGTH_SHORT).show();
         finish();

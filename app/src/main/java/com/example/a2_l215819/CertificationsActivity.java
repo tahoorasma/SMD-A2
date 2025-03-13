@@ -1,5 +1,6 @@
 package com.example.a2_l215819;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,10 +39,16 @@ public class CertificationsActivity extends AppCompatActivity {
         });
     }
     private void save() {
-        if (etCertifications.getText().toString().trim().isEmpty()) {
+        String cert = etCertifications.getText().toString().trim();
+        if (cert.isEmpty()) {
             etCertifications.setError("Certification is required");
             return;
         }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("Certifications", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("cert", cert);
+        editor.apply();
 
         Toast.makeText(this, "Certifications saved successfully", Toast.LENGTH_SHORT).show();
         finish();

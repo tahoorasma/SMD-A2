@@ -1,5 +1,6 @@
 package com.example.a2_l215819;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,10 +39,16 @@ public class SummaryActivity extends AppCompatActivity {
         });
     }
     private void save() {
-        if (etSummary.getText().toString().trim().isEmpty()) {
+        String summary = etSummary.getText().toString().trim();
+        if (summary.isEmpty()) {
             etSummary.setError("Summary is required");
             return;
         }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("Summary", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("summary", summary);
+        editor.apply();
 
         Toast.makeText(this, "Summary saved successfully", Toast.LENGTH_SHORT).show();
         finish();
