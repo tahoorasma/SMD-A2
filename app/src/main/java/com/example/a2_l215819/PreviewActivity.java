@@ -4,19 +4,26 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
+import java.io.File;
 
 public class PreviewActivity extends AppCompatActivity {
 
     private TextView tvName, tvEmail, tvPhone, backBtn, tvSummary, tvEducation, tvExperience;
     private TextView tvDuration, tvCertifications, tvReferneces;
     private ImageView ivProfilePicture;
+
+    private Button btnShareCV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,8 @@ public class PreviewActivity extends AppCompatActivity {
         tvCertifications = findViewById(R.id.certifications);
         tvReferneces = findViewById(R.id.references);
         ivProfilePicture = findViewById(R.id.ivProfilePicture);
+        btnShareCV = findViewById(R.id.btnShareCV);
+        btnShareCV.setOnClickListener(view -> shareCV());
 
         SharedPreferences spProfilePicture = getSharedPreferences("ProfilePicture", MODE_PRIVATE);
         String profilePicture = spProfilePicture.getString("profile_picture", null);
@@ -87,4 +96,18 @@ public class PreviewActivity extends AppCompatActivity {
             }
         });
     }
+    private void shareCV() {
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "CV.pdf");
+        Uri cvUri = FileProvider.getUriForFile(this, "com.example.a2_l215819.fileprovider", file); // Updated authority
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("application/pdf");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, cvUri);
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "CV");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Here is my CV. Please check it out!");
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        startActivity(Intent.createChooser(shareIntent, "Share CV via"));
+    }
+
 }
